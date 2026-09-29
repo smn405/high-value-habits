@@ -1,0 +1,706 @@
+<title>High Value Habits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="data.js"></script>
+
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #eef1ef;
+    --surface: #f8faf9;
+    --surface-2: #e6ebe8;
+    --ink: #16211c;
+    --ink-2: #4c5951;
+    --ink-3: #79857d;
+    --line: #d2dad4;
+    --accent: #0e6e5c;
+    --accent-ink: #ffffff;
+    --accent-soft: #d8ece6;
+    --series-low: #2a78d6;
+    --series-med: #eb6834;
+    --series-high: #1baf7a;
+    --shadow: 0 1px 0 rgba(20, 30, 25, 0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #101613;
+      --surface: #161d19;
+      --surface-2: #1d2621;
+      --ink: #eaf0ec;
+      --ink-2: #aab7b0;
+      --ink-3: #7c8981;
+      --line: #2a352e;
+      --accent: #35b99b;
+      --accent-ink: #08211b;
+      --accent-soft: #1c3630;
+      --series-low: #3987e5;
+      --series-med: #d95926;
+      --series-high: #199e70;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #101613;
+    --surface: #161d19;
+    --surface-2: #1d2621;
+    --ink: #eaf0ec;
+    --ink-2: #aab7b0;
+    --ink-3: #7c8981;
+    --line: #2a352e;
+    --accent: #35b99b;
+    --accent-ink: #08211b;
+    --accent-soft: #1c3630;
+    --series-low: #3987e5;
+    --series-med: #d95926;
+    --series-high: #199e70;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    padding-inline: 20px;
+    padding-block: 28px 48px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  header h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(28px, 5vw, 38px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  header p.thesis {
+    margin: 0 0 16px;
+    max-width: 62ch;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.02em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: var(--surface-2);
+    color: var(--ink-2);
+    border: 1px solid var(--line);
+  }
+
+  section {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  section > h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  section > p.sub {
+    margin: 0 0 16px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+    line-height: 1.5;
+    max-width: 68ch;
+  }
+
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 18px; }
+  .stat-tile { background: var(--surface); padding: 12px 14px; }
+  .stat-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-3); margin-bottom: 6px; }
+  .stat-tile .value { font-family: "IBM Plex Mono", monospace; font-size: 20px; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stat-tile .value small { font-size: 12px; color: var(--ink-2); font-weight: 400; }
+
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; padding: 12px 14px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
+  .control-group { display: flex; align-items: center; gap: 10px; }
+  .control-label { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  input[type="range"] { width: 140px; accent-color: var(--accent); }
+  .range-value { font-family: "IBM Plex Mono", monospace; font-size: 13px; min-width: 34px; color: var(--ink); }
+
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    font-family: inherit; font-size: 12.5px; padding: 6px 11px; border: none; background: var(--surface);
+    color: var(--ink-2); cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .seg button:last-child { border-right: none; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  svg text { fill: var(--ink-2); font-family: "IBM Plex Mono", monospace; }
+  .chart-title-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+  .chart-caption { font-size: 12.5px; color: var(--ink-2); }
+
+  .bar-fill { fill: var(--accent); }
+  .bar-fill.dim { fill: var(--ink-3); opacity: 0.45; }
+  .bar-label { fill: var(--ink); font-size: 12px; font-weight: 500; }
+  .axis-label { fill: var(--ink-3); font-size: 10.5px; }
+  .gridline { stroke: var(--line); stroke-width: 1; }
+  .adj-line { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .adj-band { fill: var(--accent); opacity: 0.14; }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  .tooltip {
+    position: fixed; pointer-events: none; z-index: 20;
+    background: var(--ink); color: var(--bg);
+    font-family: "IBM Plex Mono", monospace; font-size: 11.5px;
+    padding: 6px 9px; border-radius: 5px; line-height: 1.4;
+    transform: translate(-50%, -100%); margin-top: -8px;
+    opacity: 0; transition: opacity 0.08s ease;
+    white-space: nowrap;
+  }
+  .tooltip.show { opacity: 1; }
+
+  .obs p { font-size: 14px; line-height: 1.6; color: var(--ink-2); margin: 0 0 10px; }
+  .obs strong { color: var(--ink); }
+  .obs .callout { background: var(--accent-soft); border-radius: 8px; padding: 12px 14px; font-size: 13.5px; color: var(--ink); margin-top: 12px; }
+
+  footer { font-size: 12.5px; color: var(--ink-3); line-height: 1.6; text-align: center; padding-top: 4px; }
+  footer a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  footer a:hover { border-bottom-color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .controls { flex-direction: column; align-items: stretch; }
+    .control-group { justify-content: space-between; }
+    input[type="range"] { flex: 1; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <h1>High Value Habits</h1>
+    <p class="thesis">
+      Among households already shopping at a retailer, does buying across more product categories in year one
+      predict deeper engagement in year two — or is that just because the same households already shop more often?
+      Drag the sliders below; the charts recompute live from the underlying household data.
+    </p>
+    <div class="chips">
+      <span class="chip" id="chip-n">— households</span>
+      <span class="chip">weeks 1–52 → weeks 53–102</span>
+      <span class="chip">dunnhumby Complete Journey</span>
+      <span class="chip">OLS, HC3 robust SE</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>1. Define &quot;high value&quot;</h2>
+    <p class="sub">High value is operationalized as the top X% of households by future (year-two) trip frequency. Move the slider — the threshold, the stat tiles and the bar chart all update together.</p>
+
+    <div class="controls">
+      <div class="control-group">
+        <span class="control-label">Top</span>
+        <input type="range" id="threshold" min="10" max="50" step="1" value="25">
+        <span class="range-value mono" id="threshold-value">25%</span>
+        <span class="control-label">of households, by future trips</span>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-tile"><div class="label">High-value cutoff</div><div class="value" id="stat-cutoff">—</div></div>
+      <div class="stat-tile"><div class="label">Households qualifying</div><div class="value" id="stat-share">—</div></div>
+      <div class="stat-tile"><div class="label">Q4 vs Q1 breadth</div><div class="value" id="stat-spread">—</div></div>
+    </div>
+
+    <div class="chart-title-row">
+      <span class="chart-caption">Share of households that are &quot;high value,&quot; by year-one category-breadth quartile</span>
+    </div>
+    <svg id="bar-chart" width="100%" viewBox="0 0 860 260" role="img" aria-label="Bar chart of high value rate by category breadth quartile"></svg>
+  </section>
+
+  <section>
+    <h2>2. Raw pattern vs. adjusted for baseline engagement</h2>
+    <p class="sub">The raw view is deliberately naive. The adjusted view controls for prior trip frequency and prior spend via OLS — holding both at a chosen percentile of the household population — to isolate what category breadth adds on its own.</p>
+
+    <div class="controls">
+      <div class="control-group">
+        <span class="control-label">View</span>
+        <div class="seg" id="view-toggle">
+          <button data-view="raw" aria-pressed="true">Raw</button>
+          <button data-view="adjusted" aria-pressed="false">Adjusted</button>
+        </div>
+      </div>
+      <div class="control-group" id="percentile-group" hidden>
+        <span class="control-label">Hold trips &amp; spend at</span>
+        <div class="seg" id="percentile-toggle">
+          <button data-pct="p25">P25</button>
+          <button data-pct="median" aria-pressed="true">Median</button>
+          <button data-pct="p75">P75</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-title-row">
+      <span class="chart-caption" id="chart2-caption">Average future trips by year-one category-breadth quartile — unadjusted</span>
+    </div>
+    <svg id="main-chart" width="100%" viewBox="0 0 860 280" role="img" aria-label="Chart of future trips by category breadth"></svg>
+  </section>
+
+  <section>
+    <h2>3. Why the raw pattern is misleading</h2>
+    <p class="sub">Every household plotted by year-one category breadth vs. year-two trips, colored by how often they already shopped in year one. Within a color, breadth barely moves the picture — the color is doing most of the work in the raw chart above. Rings mark the households currently classified &quot;high value.&quot;</p>
+    <svg id="scatter-chart" width="100%" viewBox="0 0 860 320" role="img" aria-label="Scatter plot of category breadth against future trips, colored by prior trip tercile"></svg>
+    <div class="legend" id="scatter-legend"></div>
+  </section>
+
+  <section class="obs">
+    <h2>Reading the result</h2>
+    <p>The raw relationship is large: the highest-breadth quartile has a far higher &quot;high value&quot; rate than the lowest. But high-breadth households were also already shopping much more — they had more opportunities to touch more categories.</p>
+    <p>After controlling for prior trip frequency and prior spend, category breadth <strong>still</strong> carries incremental signal: <span id="obs-effect" class="mono">≈3.6% more future trips per 10 additional year-one categories</span>, holding baseline activity constant.</p>
+    <div class="callout">This is an <strong>association</strong>, not a causal estimate — the dataset is observational and limited to already-frequent shoppers. The natural next step is a real intervention: nudge comparable customers toward one additional relevant category and measure incremental engagement against a control group.</div>
+  </section>
+
+  <footer>
+    Public dataset (dunnhumby &quot;The Complete Journey&quot;, via Kaggle) · every chart above recomputes client-side from household-level data, nothing is precomputed per view.<br>
+    Code, notebook, and write-up on <a href="#" id="repo-link">GitHub</a>.
+  </footer>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+(function () {
+  "use strict";
+  var DATA = window.HVH_DATA;
+  var HH = DATA.households;
+  var MODEL = DATA.model;
+  var tooltip = document.getElementById("tooltip");
+
+  function showTip(x, y, html) {
+    tooltip.innerHTML = html;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y + "px";
+    tooltip.classList.add("show");
+  }
+  function hideTip() { tooltip.classList.remove("show"); }
+
+  function quantile(sortedArr, q) {
+    var pos = (sortedArr.length - 1) * q;
+    var base = Math.floor(pos), rest = pos - base;
+    if (sortedArr[base + 1] !== undefined) {
+      return sortedArr[base] + rest * (sortedArr[base + 1] - sortedArr[base]);
+    }
+    return sortedArr[base];
+  }
+  function fmt(n, d) { return n.toLocaleString(undefined, { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
+
+  // ---- fixed breadth quartiles (computed once) ----
+  var breadthVals = HH.map(function (h) { return h.commodity_breadth; }).sort(function (a, b) { return a - b; });
+  var qBounds = [0, quantile(breadthVals, 0.25), quantile(breadthVals, 0.5), quantile(breadthVals, 0.75), Infinity];
+  var qLabels = ["Q1", "Q2", "Q3", "Q4"];
+  HH.forEach(function (h) {
+    var b = h.commodity_breadth, qi = 0;
+    for (var i = 0; i < 4; i++) { if (b > qBounds[i] && b <= qBounds[i + 1]) qi = i; }
+    if (b <= qBounds[1]) qi = 0;
+    h._q = qi;
+  });
+
+  // ---- fixed prior-trip terciles (for scatter color) ----
+  var tripVals = HH.map(function (h) { return h.trips; }).sort(function (a, b) { return a - b; });
+  var t1 = quantile(tripVals, 1 / 3), t2 = quantile(tripVals, 2 / 3);
+  HH.forEach(function (h) {
+    h._tercile = h.trips <= t1 ? "low" : (h.trips <= t2 ? "med" : "high");
+    h._jitter = (Math.random() - 0.5) * 0.7;
+  });
+  var seriesColor = { low: "var(--series-low)", med: "var(--series-med)", high: "var(--series-high)" };
+  var seriesHex = getComputedStyleColors();
+  function getComputedStyleColors() {
+    var cs = getComputedStyle(document.documentElement);
+    return {
+      low: cs.getPropertyValue("--series-low").trim(),
+      med: cs.getPropertyValue("--series-med").trim(),
+      high: cs.getPropertyValue("--series-high").trim(),
+      accent: cs.getPropertyValue("--accent").trim()
+    };
+  }
+
+  document.getElementById("chip-n").textContent = DATA.n_households.toLocaleString() + " households";
+
+  // ============ SECTION 1: threshold-driven stat tiles + bar chart ============
+  var thresholdInput = document.getElementById("threshold");
+  var thresholdValue = document.getElementById("threshold-value");
+
+  function recomputeThreshold(pct) {
+    var sortedFuture = HH.map(function (h) { return h.future_trips; }).sort(function (a, b) { return a - b; });
+    var cutoff = quantile(sortedFuture, 1 - pct / 100);
+    var byQ = [0, 0, 0, 0], hvByQ = [0, 0, 0, 0], hvTotal = 0;
+    HH.forEach(function (h) {
+      h._hv = h.future_trips >= cutoff;
+      byQ[h._q]++;
+      if (h._hv) { hvByQ[h._q]++; hvTotal++; }
+    });
+    var rates = hvByQ.map(function (c, i) { return byQ[i] ? c / byQ[i] : 0; });
+
+    document.getElementById("stat-cutoff").innerHTML = "≥" + fmt(cutoff, 1) + "<small> trips</small>";
+    document.getElementById("stat-share").innerHTML = fmt(hvTotal, 0) + "<small> / " + DATA.n_households.toLocaleString() + "</small>";
+    document.getElementById("stat-spread").innerHTML = fmt(rates[3] * 100, 0) + "%<small> vs " + fmt(rates[0] * 100, 1) + "%</small>";
+
+    drawBarChart(rates, byQ);
+    drawScatter(); // ring highlight depends on _hv
+    return { cutoff: cutoff, rates: rates };
+  }
+
+  function drawBarChart(rates, counts) {
+    var svg = document.getElementById("bar-chart");
+    var W = 860, H = 260, padL = 46, padR = 20, padT = 16, padB = 40;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxRate = Math.max(0.15, Math.max.apply(null, rates)) * 1.15;
+    var barW = plotW / 4 * 0.5;
+    var gap = plotW / 4;
+
+    var svgns = "http://www.w3.org/2000/svg";
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (frac) {
+      var val = maxRate * frac;
+      var y = padT + plotH - frac * plotH;
+      var line = document.createElementNS(svgns, "line");
+      line.setAttribute("x1", padL); line.setAttribute("x2", W - padR);
+      line.setAttribute("y1", y); line.setAttribute("y2", y);
+      line.setAttribute("class", "gridline");
+      svg.appendChild(line);
+      var lbl = document.createElementNS(svgns, "text");
+      lbl.setAttribute("x", padL - 8); lbl.setAttribute("y", y + 4);
+      lbl.setAttribute("text-anchor", "end"); lbl.setAttribute("class", "axis-label");
+      lbl.textContent = fmt(val * 100, 0) + "%";
+      svg.appendChild(lbl);
+    });
+
+    rates.forEach(function (r, i) {
+      var cx = padL + gap * i + gap / 2;
+      var barH = plotH * (r / maxRate);
+      var y = padT + plotH - barH;
+      var rect = document.createElementNS(svgns, "rect");
+      rect.setAttribute("x", cx - barW / 2); rect.setAttribute("y", y);
+      rect.setAttribute("width", barW); rect.setAttribute("height", Math.max(barH, 1));
+      rect.setAttribute("rx", 4);
+      rect.setAttribute("class", "bar-fill");
+      rect.style.cursor = "pointer";
+      rect.addEventListener("mousemove", function (e) {
+        showTip(e.clientX, e.clientY, qLabels[i] + " (" + counts[i].toLocaleString() + " hh)<br>" + fmt(r * 100, 1) + "% high value");
+      });
+      rect.addEventListener("mouseleave", hideTip);
+      svg.appendChild(rect);
+
+      var valLbl = document.createElementNS(svgns, "text");
+      valLbl.setAttribute("x", cx); valLbl.setAttribute("y", y - 8);
+      valLbl.setAttribute("text-anchor", "middle"); valLbl.setAttribute("class", "bar-label");
+      valLbl.textContent = fmt(r * 100, 0) + "%";
+      svg.appendChild(valLbl);
+
+      var xLbl = document.createElementNS(svgns, "text");
+      xLbl.setAttribute("x", cx); xLbl.setAttribute("y", H - padB + 20);
+      xLbl.setAttribute("text-anchor", "middle"); xLbl.setAttribute("class", "axis-label");
+      xLbl.textContent = qLabels[i] + " breadth";
+      svg.appendChild(xLbl);
+    });
+  }
+
+  thresholdInput.addEventListener("input", function () {
+    thresholdValue.textContent = thresholdInput.value + "%";
+    recomputeThreshold(+thresholdInput.value);
+  });
+
+  // ============ SECTION 2: raw vs adjusted ============
+  var currentView = "raw";
+  var currentPct = "median";
+  var viewToggle = document.getElementById("view-toggle");
+  var pctToggle = document.getElementById("percentile-toggle");
+  var pctGroup = document.getElementById("percentile-group");
+  var caption2 = document.getElementById("chart2-caption");
+
+  viewToggle.addEventListener("click", function (e) {
+    var btn = e.target.closest("button"); if (!btn) return;
+    currentView = btn.dataset.view;
+    Array.prototype.forEach.call(viewToggle.querySelectorAll("button"), function (b) {
+      b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+    });
+    pctGroup.hidden = currentView !== "adjusted";
+    renderMainChart();
+  });
+  pctToggle.addEventListener("click", function (e) {
+    var btn = e.target.closest("button"); if (!btn) return;
+    currentPct = btn.dataset.pct;
+    Array.prototype.forEach.call(pctToggle.querySelectorAll("button"), function (b) {
+      b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+    });
+    renderMainChart();
+  });
+
+  function renderMainChart() {
+    if (currentView === "raw") {
+      caption2.textContent = "Average future trips by year-one category-breadth quartile — unadjusted";
+      drawRawTripsChart();
+    } else {
+      var label = currentPct === "p25" ? "25th percentile" : currentPct === "p75" ? "75th percentile" : "median";
+      caption2.textContent = "OLS-predicted future trips vs. breadth, holding trips & spend at their " + label + " (95% CI)";
+      drawAdjustedChart(currentPct);
+    }
+  }
+
+  function drawRawTripsChart() {
+    var svg = document.getElementById("main-chart");
+    var byQ = [[], [], [], []];
+    HH.forEach(function (h) { byQ[h._q].push(h.future_trips); });
+    var means = byQ.map(function (arr) { return arr.reduce(function (a, b) { return a + b; }, 0) / arr.length; });
+    renderBarsGeneric(svg, means, qLabels.map(function (l) { return l + " breadth"; }), function (v) { return fmt(v, 1); }, function (i) {
+      return qLabels[i] + "<br>" + fmt(means[i], 1) + " avg future trips";
+    });
+  }
+
+  function renderBarsGeneric(svg, values, xLabels, valFmt, tipFn) {
+    var W = 860, H = 280, padL = 50, padR = 20, padT = 16, padB = 44;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxV = Math.max.apply(null, values) * 1.2;
+    var gap = plotW / values.length;
+    var barW = gap * 0.5;
+    var svgns = "http://www.w3.org/2000/svg";
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (frac) {
+      var val = maxV * frac;
+      var y = padT + plotH - frac * plotH;
+      var line = document.createElementNS(svgns, "line");
+      line.setAttribute("x1", padL); line.setAttribute("x2", W - padR);
+      line.setAttribute("y1", y); line.setAttribute("y2", y);
+      line.setAttribute("class", "gridline");
+      svg.appendChild(line);
+      var lbl = document.createElementNS(svgns, "text");
+      lbl.setAttribute("x", padL - 8); lbl.setAttribute("y", y + 4);
+      lbl.setAttribute("text-anchor", "end"); lbl.setAttribute("class", "axis-label");
+      lbl.textContent = valFmt(val);
+      svg.appendChild(lbl);
+    });
+
+    values.forEach(function (v, i) {
+      var cx = padL + gap * i + gap / 2;
+      var barH = plotH * (v / maxV);
+      var y = padT + plotH - barH;
+      var rect = document.createElementNS(svgns, "rect");
+      rect.setAttribute("x", cx - barW / 2); rect.setAttribute("y", y);
+      rect.setAttribute("width", barW); rect.setAttribute("height", Math.max(barH, 1));
+      rect.setAttribute("rx", 4); rect.setAttribute("class", "bar-fill");
+      rect.style.cursor = "pointer";
+      rect.addEventListener("mousemove", function (e) { showTip(e.clientX, e.clientY, tipFn(i)); });
+      rect.addEventListener("mouseleave", hideTip);
+      svg.appendChild(rect);
+
+      var valLbl = document.createElementNS(svgns, "text");
+      valLbl.setAttribute("x", cx); valLbl.setAttribute("y", y - 8);
+      valLbl.setAttribute("text-anchor", "middle"); valLbl.setAttribute("class", "bar-label");
+      valLbl.textContent = valFmt(v);
+      svg.appendChild(valLbl);
+
+      var xLbl = document.createElementNS(svgns, "text");
+      xLbl.setAttribute("x", cx); xLbl.setAttribute("y", H - padB + 20);
+      xLbl.setAttribute("text-anchor", "middle"); xLbl.setAttribute("class", "axis-label");
+      xLbl.textContent = xLabels[i];
+      svg.appendChild(xLbl);
+    });
+  }
+
+  // ---- delta-method prediction for the adjusted line + CI band ----
+  function dot(a, b) { var s = 0; for (var i = 0; i < a.length; i++) s += a[i] * b[i]; return s; }
+  function matVec(M, v) { return M.map(function (row) { return dot(row, v); }); }
+
+  function predictAt(breadth, logTrips, logSpend) {
+    var order = MODEL.param_order; // [Intercept, log_trips, log_spend, commodity_breadth_10]
+    var x = order.map(function (name) {
+      if (name === "Intercept") return 1;
+      if (name === "log_trips") return logTrips;
+      if (name === "log_spend") return logSpend;
+      if (name === "commodity_breadth_10") return breadth / 10;
+      return 0;
+    });
+    var beta = order.map(function (name) { return MODEL.params[name]; });
+    var pred = dot(beta, x);
+    var Mv = matVec(MODEL.cov, x);
+    var variance = dot(x, Mv);
+    var se = Math.sqrt(Math.max(variance, 0));
+    return { pred: pred, se: se };
+  }
+
+  function drawAdjustedChart(pctKey) {
+    var logTrips, logSpend;
+    if (pctKey === "p25") { logTrips = Math.log1p(MODEL.p25_trips); logSpend = Math.log1p(MODEL.p25_spend); }
+    else if (pctKey === "p75") { logTrips = Math.log1p(MODEL.p75_trips); logSpend = Math.log1p(MODEL.p75_spend); }
+    else { logTrips = MODEL.median_log_trips; logSpend = MODEL.median_log_spend; }
+
+    var n = 40;
+    var lo = MODEL.breadth_p10, hi = MODEL.breadth_p90;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var b = lo + (hi - lo) * (i / n);
+      var r = predictAt(b, logTrips, logSpend);
+      var predTrips = Math.expm1(r.pred);
+      var lower = Math.expm1(r.pred - 1.96 * r.se);
+      var upper = Math.expm1(r.pred + 1.96 * r.se);
+      pts.push({ b: b, y: predTrips, lo: lower, hi: upper });
+    }
+
+    var svg = document.getElementById("main-chart");
+    var W = 860, H = 280, padL = 50, padR = 20, padT = 16, padB = 44;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxY = Math.max.apply(null, pts.map(function (p) { return p.hi; })) * 1.1;
+    var minY = 0;
+    var svgns = "http://www.w3.org/2000/svg";
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    function xPos(b) { return padL + plotW * (b - lo) / (hi - lo); }
+    function yPos(v) { return padT + plotH - plotH * ((v - minY) / (maxY - minY)); }
+
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (frac) {
+      var val = maxY * frac;
+      var y = padT + plotH - frac * plotH;
+      var line = document.createElementNS(svgns, "line");
+      line.setAttribute("x1", padL); line.setAttribute("x2", W - padR);
+      line.setAttribute("y1", y); line.setAttribute("y2", y);
+      line.setAttribute("class", "gridline");
+      svg.appendChild(line);
+      var lbl = document.createElementNS(svgns, "text");
+      lbl.setAttribute("x", padL - 8); lbl.setAttribute("y", y + 4);
+      lbl.setAttribute("text-anchor", "end"); lbl.setAttribute("class", "axis-label");
+      lbl.textContent = fmt(val, 0);
+      svg.appendChild(lbl);
+    });
+
+    [0, 0.5, 1].forEach(function (frac) {
+      var b = lo + (hi - lo) * frac;
+      var xLbl = document.createElementNS(svgns, "text");
+      xLbl.setAttribute("x", xPos(b)); xLbl.setAttribute("y", H - padB + 20);
+      xLbl.setAttribute("text-anchor", "middle"); xLbl.setAttribute("class", "axis-label");
+      xLbl.textContent = fmt(b, 0) + " categories";
+      svg.appendChild(xLbl);
+    });
+
+    var bandPath = "M " + pts.map(function (p) { return xPos(p.b) + " " + yPos(p.hi); }).join(" L ") +
+      " L " + pts.slice().reverse().map(function (p) { return xPos(p.b) + " " + yPos(p.lo); }).join(" L ") + " Z";
+    var band = document.createElementNS(svgns, "path");
+    band.setAttribute("d", bandPath); band.setAttribute("class", "adj-band");
+    svg.appendChild(band);
+
+    var linePath = "M " + pts.map(function (p) { return xPos(p.b) + " " + yPos(p.y); }).join(" L ");
+    var line = document.createElementNS(svgns, "path");
+    line.setAttribute("d", linePath); line.setAttribute("class", "adj-line");
+    svg.appendChild(line);
+
+    var overlay = document.createElementNS(svgns, "rect");
+    overlay.setAttribute("x", padL); overlay.setAttribute("y", padT);
+    overlay.setAttribute("width", plotW); overlay.setAttribute("height", plotH);
+    overlay.setAttribute("fill", "transparent");
+    overlay.addEventListener("mousemove", function (e) {
+      var rect = svg.getBoundingClientRect();
+      var scaleX = W / rect.width;
+      var mx = (e.clientX - rect.left) * scaleX;
+      var frac = Math.min(1, Math.max(0, (mx - padL) / plotW));
+      var b = lo + (hi - lo) * frac;
+      var idx = Math.round(frac * n);
+      var p = pts[idx];
+      showTip(e.clientX, e.clientY, fmt(b, 0) + " categories<br>≈" + fmt(p.y, 1) + " trips [" + fmt(p.lo, 1) + "–" + fmt(p.hi, 1) + "]");
+    });
+    overlay.addEventListener("mouseleave", hideTip);
+    svg.appendChild(overlay);
+  }
+
+  // ============ SECTION 3: scatter ============
+  function drawScatter() {
+    var svg = document.getElementById("scatter-chart");
+    var W = 860, H = 320, padL = 50, padR = 20, padT = 16, padB = 40;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxB = Math.max.apply(null, HH.map(function (h) { return h.commodity_breadth; })) + 1;
+    var maxY = quantile(HH.map(function (h) { return h.future_trips; }).sort(function (a, b) { return a - b; }), 0.98);
+    var svgns = "http://www.w3.org/2000/svg";
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    function xPos(b) { return padL + plotW * (b / maxB); }
+    function yPos(v) { return padT + plotH - plotH * (Math.min(v, maxY) / maxY); }
+
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (frac) {
+      var y = padT + plotH - frac * plotH;
+      var line = document.createElementNS(svgns, "line");
+      line.setAttribute("x1", padL); line.setAttribute("x2", W - padR);
+      line.setAttribute("y1", y); line.setAttribute("y2", y);
+      line.setAttribute("class", "gridline");
+      svg.appendChild(line);
+      var lbl = document.createElementNS(svgns, "text");
+      lbl.setAttribute("x", padL - 8); lbl.setAttribute("y", y + 4);
+      lbl.setAttribute("text-anchor", "end"); lbl.setAttribute("class", "axis-label");
+      lbl.textContent = fmt(maxY * frac, 0);
+      svg.appendChild(lbl);
+    });
+    var xLbl1 = document.createElementNS(svgns, "text");
+    xLbl1.setAttribute("x", padL); xLbl1.setAttribute("y", H - padB + 20);
+    xLbl1.setAttribute("class", "axis-label"); xLbl1.textContent = "0 categories";
+    svg.appendChild(xLbl1);
+    var xLbl2 = document.createElementNS(svgns, "text");
+    xLbl2.setAttribute("x", W - padR); xLbl2.setAttribute("y", H - padB + 20);
+    xLbl2.setAttribute("text-anchor", "end"); xLbl2.setAttribute("class", "axis-label");
+    xLbl2.textContent = fmt(maxB, 0) + " categories";
+    svg.appendChild(xLbl2);
+
+    var frag = document.createDocumentFragment();
+    HH.forEach(function (h) {
+      var cx = xPos(h.commodity_breadth + h._jitter);
+      var cy = yPos(h.future_trips);
+      var c = document.createElementNS(svgns, "circle");
+      c.setAttribute("cx", cx); c.setAttribute("cy", cy); c.setAttribute("r", h._hv ? 3.4 : 2.6);
+      c.setAttribute("fill", seriesHex[h._tercile]);
+      c.setAttribute("fill-opacity", h._hv ? 0.85 : 0.35);
+      if (h._hv) { c.setAttribute("stroke", seriesHex.accent); c.setAttribute("stroke-width", 1.1); }
+      c.dataset.trips = h.trips; c.dataset.future = h.future_trips; c.dataset.breadth = h.commodity_breadth; c.dataset.hv = h._hv ? "1" : "0";
+      frag.appendChild(c);
+    });
+    svg.appendChild(frag);
+
+    svg.addEventListener("mousemove", function (e) {
+      if (e.target.tagName !== "circle") { hideTip(); return; }
+      var d = e.target.dataset;
+      showTip(e.clientX, e.clientY,
+        d.breadth + " categories · " + d.future + " future trips<br>" +
+        d.trips + " prior trips" + (d.hv === "1" ? " · <strong>high value</strong>" : ""));
+    });
+    svg.addEventListener("mouseleave", hideTip);
+  }
+
+  var legend = document.getElementById("scatter-legend");
+  [["low", "Low prior trips"], ["med", "Mid prior trips"], ["high", "High prior trips"]].forEach(function (pair) {
+    var item = document.createElement("span");
+    item.className = "legend-item";
+    var sw = document.createElement("span");
+    sw.className = "legend-swatch";
+    sw.style.background = seriesHex[pair[0]];
+    item.appendChild(sw);
+    item.appendChild(document.createTextNode(pair[1]));
+    legend.appendChild(item);
+  });
+  var ringItem = document.createElement("span");
+  ringItem.className = "legend-item";
+  ringItem.innerHTML = '<span class="legend-swatch" style="background:transparent;border:1.5px solid var(--accent)"></span> Ring = high value at current threshold';
+  legend.appendChild(ringItem);
+
+  // ---- init ----
+  var effectPct = (Math.exp(MODEL.params.commodity_breadth_10) - 1) * 100;
+  document.getElementById("obs-effect").textContent = "≈" + fmt(effectPct, 1) + "% more future trips per 10 additional year-one categories";
+
+  recomputeThreshold(25);
+  renderMainChart();
+})();
+</script>
