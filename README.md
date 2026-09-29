@@ -28,15 +28,17 @@ requirements.txt
 
 To rerun the notebook or the export script: `pip install -r requirements.txt`, then run either — `kagglehub` downloads the dataset automatically on first use.
 
+## Why this dataset
+
+My day-to-day causal inference work sits in a different domain — partial rollouts, utility network operations, and optional-enrollment incentive programs — with different data properties and behaviors (infrastructure constraints, opt-in selection, incentive-driven adoption) than open retail transaction data. I wrangled through the dunnhumby dataset on a weekend specifically to pressure-test the same instincts (don't trust the raw effect, go find what else explains it, adjust, then say plainly what you still can't claim) in a domain I don't normally work in.
+
 ## How this was built
 
 This is meant as an **AI-assisted work sample**, so here's the actual division of labor rather than a generic "built with AI" line:
 
-- The question, the study design (observation/outcome window split, the "high value = top quartile of future trips" operationalization), and the decision to *distrust* the raw relationship and go looking for the confounder were mine.
-- I worked with **Claude Code** end-to-end on execution: writing the pandas aggregation and OLS/HC3 regression, turning the exploratory notebook (`exploration_raw.ipynb`) into the narrated, cleaned-up version, building the interactive exploration tool in `app/` (vanilla JS, SVG charts computed live from the data — including a client-side delta-method confidence band off the model's covariance matrix), and setting up this repo end to end, including this README and the GitHub push.
+- The dataset choice and motivation above, the question, the study design (observation/outcome window split, the "high value = top quartile of future trips" operationalization), and the decision to *distrust* the raw relationship and go looking for the confounder were mine, from the weekend exploration.
+- From that point, I worked with **Claude Code** end-to-end on execution: writing the pandas aggregation and OLS/HC3 regression, turning the exploratory notebook (`exploration_raw.ipynb`) into the narrated, cleaned-up version, building the interactive exploration tool in `app/` (vanilla JS, SVG charts computed live from the data — including a client-side delta-method confidence band off the model's covariance matrix), and setting up this repo end to end, including this README and the GitHub push.
 - Every number on the interactive page is computed from the real household-level data at view time — nothing is a canned screenshot.
-
-<!-- TODO(santiago): if you used AI earlier in exploration_raw.ipynb too (picking the dataset, debugging pandas, etc.), say so here specifically — this note currently only describes what happened in the Claude Code session that produced the clean notebook and the app. -->
 
 ## Caveats
 
