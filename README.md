@@ -2,8 +2,10 @@
 
 **Question:** among retail households that are already shopping regularly, is buying across a *wider range of product categories* in year one associated with *stronger engagement* in year two — or is that just because the same households already shop more often?
 
-**Live interactive version:** https://claude.ai/artifact/PUFqFStGmWNbwzS9HF3LLE
+**Live interactive version:** https://smn405.github.io/high-value-habits/
 Drag the "top X%" slider, flip between the raw and confounder-adjusted views, and hover the scatter — every chart recomputes client-side from the 2,497 underlying households, nothing is a static image.
+
+*(Also viewable as a [Claude artifact](https://claude.ai/artifact/PUFqFStGmWNbwzS9HF3LLE) — identical page, useful mainly as a record of how it was built.)*
 
 ## TL;DR
 
@@ -21,8 +23,10 @@ analysis/
   high_value_habits.ipynb   the polished, narrated analysis (start here)
   exploration_raw.ipynb     the messier first pass — kept as-is to show the actual process
 app/
-  index.html, data.js       the interactive artifact above, as static files
-  export_data.py            regenerates app/data.js from the raw dataset (pandas + statsmodels)
+  index.html, data.js       source for the interactive app, as published to Claude
+  export_data.py            regenerates data.js from the raw dataset (pandas + statsmodels)
+docs/
+  index.html, data.js       standalone copy served by GitHub Pages (self-contained HTML doc)
 requirements.txt
 ```
 
